@@ -81,6 +81,7 @@ class TestSubmit:
                 f"用例[{case_data['case_name']}]失败：预期 result={case_data['result']}，实际={response['result']}"
             assert response["desc"] == case_data["desc"], \
                 f"用例[{case_data['case_name']}]失败：预期 desc={case_data['desc']}，实际={response['desc']}"
+            print(f"用例{case_data['case_name']}成功")
         except AssertionError as e:
             print(f"用例[{case_data['case_name']}]失败")
             raise
