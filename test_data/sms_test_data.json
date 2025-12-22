@@ -1,0 +1,38 @@
+{
+  "sms_submit_case": [
+    {
+      "case_name": "正向用例",
+      "params": {
+        "phones": "17738903961",
+        "content": "测试123数https://hi.cbmexpo.com/asdasd据测试",
+        "sign": "【大汉三通】"
+      },
+      "result": 0,
+      "desc": "提交成功"
+    },
+    {
+      "case_name": "异常用例-手机号为空",
+      "params": {
+        "phones": ""
+      },
+      "result": 14,
+      "desc": "手机号码为空"
+    },
+    {
+      "case_name": "异常用例-签名为空",
+      "params": {
+        "sign": ""
+      },
+      "result": 0,
+      "desc": "提交成功"
+    },
+    {
+      "case_name": "异常用例-内容为空",
+      "params": {
+        "content": ""
+      },
+      "result": 20,
+      "desc": "数据包/短信内容为空"
+    }
+  ]
+}
