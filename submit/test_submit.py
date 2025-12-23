@@ -1,15 +1,21 @@
+from pathlib import Path
+
 import pytest
 import requests
 import json
 from config import CONFIG
 
-#自定义接口异常
+
+# 自定义接口异常
 class ApiRequestError(Exception):
     pass
 
+
 def load_sms_test_data():
-    # 数据源绝对路径
-    json_data_path = "E:\\PythonProject\\SubmitProject\\test_data\\sms_test_data.json"
+    # 使用当前文件所在目录的父目录作为数据源目录
+    json_path = Path(__file__).parent
+    # 数据源文件路径
+    json_data_path = json_path.parent / "test_data" / "sms_test_data.json"
     with open(json_data_path, "r", encoding="utf-8") as json_data:
         data = json.load(json_data)["sms_submit_case"]
         print(f"加载{len(data)}条case数据")
@@ -77,7 +83,7 @@ class TestSubmit:
     @pytest.mark.parametrize("case_data", load_sms_test_data())
     def test_post_submit_case(self, sms_fixture, case_data):
         try:
-            #合并数据源
+            # 合并数据源
             body = {**sms_fixture.get("body"), **case_data["params"]}
             response = submit(sms_fixture.get("url"), body)
 
@@ -88,7 +94,7 @@ class TestSubmit:
             print(f"用例[{case_data['case_name']}]成功")
         except ApiRequestError as e:
             # 自定义异常内容，关闭堆栈信息打印
-            pytest.fail("接口异常或超时，请检查配置或网络环境",pytrace=False)
+            pytest.fail("接口异常或超时，请检查配置或网络环境", pytrace=False)
         except AssertionError as e:
             print(f"用例[{case_data['case_name']}]失败")
             raise

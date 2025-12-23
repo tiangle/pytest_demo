@@ -3,7 +3,7 @@
     {
       "case_name": "正向用例",
       "params": {
-        "phones": "17738903961",
+        "phones": "17712345678",
         "content": "测试123数https://hi.cbmexpo.com/asdasd据测试",
         "sign": "【大汉三通】"
       },
@@ -23,7 +23,7 @@
       "params": {
         "sign": ""
       },
-      "result": -1,
+      "result": 0,
       "desc": "提交成功"
     },
     {
@@ -31,8 +31,133 @@
       "params": {
         "content": ""
       },
-      "result": 20,
+      "result": 21,
       "desc": "数据包/短信内容为空"
+    },
+    {
+      "case_name": "正向用例-多个手机号码",
+      "params": {
+        "phones": "17712345678,13812345678",
+        "content": "测试多个手机号码发送",
+        "sign": "【大汉三通】"
+      },
+      "result": 0,
+      "desc": "提交成功"
+    },
+    {
+      "case_name": "正向用例-国际号码格式",
+      "params": {
+        "phones": "+85255441234",
+        "content": "测试国际号码发送",
+        "sign": "【大汉三通】"
+      },
+      "result": 0,
+      "desc": "提交成功"
+    },
+    {
+      "case_name": "正向用例-自定义msgid",
+      "params": {
+        "phones": "17712345678",
+        "content": "测试自定义msgid",
+        "sign": "【大汉三通】",
+        "msgid": "1234567890abcdef1234567890abcdef"
+      },
+      "result": 0,
+      "desc": "提交成功"
+    },
+    {
+      "case_name": "异常用例-msgid过长",
+      "params": {
+        "phones": "17712345678",
+        "content": "测试msgid过长",
+        "sign": "【大汉三通】",
+        "msgid": "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12345678"
+      },
+      "result": 3,
+      "desc": "msgid太长"
+    },
+    {
+      "case_name": "正向用例-自定义subcode",
+      "params": {
+        "phones": "17712345678",
+        "content": "测试自定义subcode",
+        "sign": "【大汉三通】",
+        "subcode": "123"
+      },
+      "result": 0,
+      "desc": "提交成功"
+    },
+    {
+      "case_name": "异常用例-无效subcode",
+      "params": {
+        "phones": "17712345678",
+        "content": "测试无效subcode",
+        "sign": "【大汉三通】",
+        "subcode": "abc"
+      },
+      "result": 7,
+      "desc": "扩展子号码无效"
+    },
+    {
+      "case_name": "正向用例-自定义params",
+      "params": {
+        "phones": "17712345678",
+        "content": "测试自定义params",
+        "sign": "【大汉三通】",
+        "params": {"param1": "aaa", "param2": "bbb"}
+      },
+      "result": 0,
+      "desc": "提交成功"
+    },
+    {
+      "case_name": "正向用例-带ctcTheme的params",
+      "params": {
+        "phones": "17712345678",
+        "content": "测试带ctcTheme的params",
+        "sign": "【大汉三通】",
+        "params": {"ctcTheme": "测试主题"}
+      },
+      "result": 0,
+      "desc": "提交成功"
+    },
+    {
+      "case_name": "正向用例-urlReplace功能",
+      "params": {
+        "phones": "17712345678",
+        "content": "测试长链接替换功能 https://www.example.com/this-is-a-very-long-url-that-needs-to-be-replaced 测试结束",
+        "sign": "【大汉三通】",
+        "urlReplace": true
+      },
+      "result": 0,
+      "desc": "提交成功"
+    },
+    {
+      "case_name": "异常用例-内容包含方括号[]",
+      "params": {
+        "phones": "17712345678",
+        "content": "测试内容包含[方括号]"
+      },
+      "result": 0,
+      "desc": "提交成功"
+    },
+    {
+      "case_name": "异常用例-无效手机号格式",
+      "params": {
+        "phones": "123456"
+      },
+      "result": 24,
+      "desc": "无可用号码"
+    },
+    {
+      "case_name": "异常用例-定时时间格式错误",
+      "params": {
+        "phones": "17712345678",
+        "content": "测试定时时间格式错误",
+        "sign": "【大汉三通】",
+        "sendtime": "2023-12-23 12:00"
+      },
+      "result": 8,
+      "desc": "定时时间格式错误"
     }
   ]
 }
