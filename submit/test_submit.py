@@ -12,10 +12,10 @@ class ApiRequestError(Exception):
 
 
 def load_sms_test_data():
-    # 使用当前文件所在目录的父目录作为数据源目录
-    json_path = Path(__file__).parent
+    # 获取项目根目录
+    project_path = Path(__file__).parent.parent
     # 数据源文件路径
-    json_data_path = json_path.parent / "test_data" / "sms_test_data.json"
+    json_data_path = project_path / "test_data" / "sms_test_data.json"
     with open(json_data_path, "r", encoding="utf-8") as json_data:
         data = json.load(json_data)["sms_submit_case"]
         print(f"加载{len(data)}条case数据")
