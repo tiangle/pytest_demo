@@ -4,7 +4,7 @@ class BaseConfig:
 
 
 class QAConfig(BaseConfig):
-    QA_SMS_URL = "https://oss-qa-ics.hanwj.cn"
+    QA_SMS_URL = "https://oss-qa-ics.hanwjss.cn"
     QA_ACCOUNT = "mc123"
     QA_PASSWORD = "bb43a2c4081bec02fca7b72f38e63021"
     QA_PHONES = "17738903961"

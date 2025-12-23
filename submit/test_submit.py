@@ -3,6 +3,9 @@ import requests
 import json
 from config import CONFIG
 
+#自定义接口异常
+class ApiRequestError(Exception):
+    pass
 
 def load_sms_test_data():
     # 数据源绝对路径
@@ -22,7 +25,7 @@ def submit(url, body):
         response_desc = response_test["desc"]
         return {"result": response_result, "desc": response_desc}
     except Exception as e:
-        print(e)
+        raise ApiRequestError from e
 
 
 class TestSubmit:
@@ -74,6 +77,7 @@ class TestSubmit:
     @pytest.mark.parametrize("case_data", load_sms_test_data())
     def test_post_submit_case(self, sms_fixture, case_data):
         try:
+            #合并数据源
             body = {**sms_fixture.get("body"), **case_data["params"]}
             response = submit(sms_fixture.get("url"), body)
 
@@ -82,8 +86,11 @@ class TestSubmit:
             assert response["desc"] == case_data["desc"], \
                 f"用例[{case_data['case_name']}]失败：预期 desc={case_data['desc']}，实际={response['desc']}"
             print(f"用例[{case_data['case_name']}]成功")
+        except ApiRequestError as e:
+            # 自定义异常内容，关闭堆栈信息打印
+            pytest.fail("接口异常或超时，请检查配置或网络环境",pytrace=False)
         except AssertionError as e:
             print(f"用例[{case_data['case_name']}]失败")
             raise
         except Exception as e:
-            print(e)
+            raise

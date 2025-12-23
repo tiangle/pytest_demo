@@ -23,7 +23,7 @@
       "params": {
         "sign": ""
       },
-      "result": 0,
+      "result": -1,
       "desc": "提交成功"
     },
     {
