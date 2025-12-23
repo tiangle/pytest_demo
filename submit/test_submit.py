@@ -54,32 +54,7 @@ class TestSubmit:
                 "params": params}
         return {"url": url, "body": body}
 
-    # 标准接口
-    def test_post_submit(self, sms_fixture):
-        try:
-            response = submit(sms_fixture.get("url"), sms_fixture.get("body"))
-            assert response["result"] == 0 and response["desc"] == "提交成功", \
-                f"预期 result=0 且 desc=提交成功，实际 result={response['result']}, desc={response['desc']}"
-        except AssertionError as e:
-            print(e)
-        except Exception as e:
-            print(e)
-
-    # 手机号为空
-    def test_post_submit_nophones(self, sms_fixture):
-        try:
-            # 设置手机号为空
-            body = sms_fixture.get("body").copy()
-            body["phones"] = ""
-            response = submit(sms_fixture.get("url"), body)
-            assert response["result"] == 14 and response["desc"] == "手机号码为空", \
-                f"预期 result=14 且 desc=手机号码为空，实际 result={response['result']}, desc={response['desc']}"
-        except AssertionError as e:
-            print(e)
-        except Exception as e:
-            print(e)
-
-    # 直接跑json数据源里的case
+    # 数据驱动
     @pytest.mark.parametrize("case_data", load_sms_test_data())
     def test_post_submit_case(self, sms_fixture, case_data):
         try:
