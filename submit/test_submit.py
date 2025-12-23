@@ -1,37 +1,10 @@
 from pathlib import Path
 
 import pytest
-import requests
-import json
-from config import CONFIG
-
-
-# 自定义接口异常
-class ApiRequestError(Exception):
-    pass
-
-
-def load_sms_test_data():
-    # 获取项目根目录
-    project_path = Path(__file__).parent.parent
-    # 数据源文件路径
-    json_data_path = project_path / "test_data" / "sms_test_data.json"
-    with open(json_data_path, "r", encoding="utf-8") as json_data:
-        data = json.load(json_data)["sms_submit_case"]
-        print(f"加载{len(data)}条case数据")
-        return data
-
-
-def submit(url, body):
-    try:
-        response = requests.post(url, json=body, timeout=CONFIG.TIME_OUT)
-        response.raise_for_status()
-        response_test = json.loads(response.text)
-        response_result = int(response_test["result"])
-        response_desc = response_test["desc"]
-        return {"result": response_result, "desc": response_desc}
-    except Exception as e:
-        raise ApiRequestError from e
+from config.config import CONFIG
+from api.SmaApi import SmaApi
+from exceptions.exceptions import ApiRequestError
+from test_data.load_data import LoadJsonData
 
 
 class TestSubmit:
@@ -55,13 +28,12 @@ class TestSubmit:
         return {"url": url, "body": body}
 
     # 数据驱动
-    @pytest.mark.parametrize("case_data", load_sms_test_data())
+    @pytest.mark.parametrize("case_data", LoadJsonData.load_sms_test_data())
     def test_post_submit_case(self, sms_fixture, case_data):
         try:
             # 合并数据源
             body = {**sms_fixture.get("body"), **case_data["params"]}
-            response = submit(sms_fixture.get("url"), body)
-
+            response = SmaApi().submit(sms_fixture.get("url"), body)
             assert response["result"] == case_data["result"], \
                 f"用例[{case_data['case_name']}]失败：预期 result={case_data['result']}，实际={response['result']}"
             assert response["desc"] == case_data["desc"], \
