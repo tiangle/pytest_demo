@@ -1,0 +1,199 @@
+{
+  "dfrc_test_data": [
+    {
+      "case_name": "正向用例-基本参数发送",
+      "params": {
+        "userName": "mc123"
+      },
+      "expected": {
+        "resultCode": "1",
+        "resultMsg": "提交成功"
+      }
+    },
+    {
+      "case_name": "正向用例-自定义seqid",
+      "params": {
+        "userName": "mc123",
+        "seqid": "test_seq_001"
+      },
+      "expected": {
+        "resultCode": "1",
+        "resultMsg": "提交成功"
+      }
+    },
+    {
+      "case_name": "正向用例-定时发送",
+      "params": {
+        "userName": "mc123",
+        "dstime": "20301231235959"
+      },
+      "expected": {
+        "resultCode": "1",
+        "resultMsg": "提交成功"
+      }
+    },
+    {
+      "case_name": "正向用例-国际短信",
+      "params": {
+        "userName": "mc123",
+        "isms": 1
+      },
+      "expected": {
+        "resultCode": "1",
+        "resultMsg": "提交成功"
+      }
+    },
+    {
+      "case_name": "正向用例-多个手机号",
+      "params": {
+        "userName": "mc123",
+        "mobile": "17712345678,17787654321"
+      },
+      "expected": {
+        "resultCode": "1",
+        "resultMsg": "提交成功"
+      }
+    },
+    {
+      "case_name": "异常用例-用户名不能为空",
+      "params": {
+        "userName": ""
+      },
+      "expected": {
+        "resultCode": "-1",
+        "resultMsg": "用户名不能为空"
+      }
+    },
+    {
+      "case_name": "异常用例-sign为空",
+      "params": {
+        "userName": "mc123",
+        "sign": ""
+      },
+      "expected": {
+        "resultCode": "-1",
+        "resultMsg": "签名不能为空"
+      }
+    },
+    {
+      "case_name": "异常用例-mobile格式错误",
+      "params": {
+        "userName": "mc123",
+        "mobile": "123456"
+      },
+      "expected": {
+        "resultCode": "-14",
+        "resultMsg": "内容解析异常"
+      }
+    },
+    {
+      "case_name": "异常用例-dstime格式错误",
+      "params": {
+        "userName": "mc123",
+        "dstime": "2023-12-31"
+      },
+      "expected": {
+        "resultCode": "-14",
+        "resultMsg": "内容解析异常"
+      }
+    },
+    {
+      "case_name": "异常用例-isms值非法",
+      "params": {
+        "userName": "mc123",
+        "isms": 2
+      },
+      "expected": {
+        "resultCode": "-14",
+        "resultMsg": "内容解析异常"
+      }
+    },
+    {
+      "case_name": "异常用例-错误账号",
+      "params": {
+        "userName": "mc123456"
+      },
+      "expected": {
+        "resultCode": "-1",
+        "resultMsg": "账号或密码不正确"
+      }
+    },
+    {
+      "case_name": "异常用例-错误密码",
+      "params": {
+        "userName": "mc123",
+        "password": "123123"
+      },
+      "expected": {
+        "resultCode": "-1",
+        "resultMsg": "账号或密码不正确"
+      }
+    },
+    {
+      "case_name": "异常用例-密码不能为空",
+      "params": {
+        "userName": "mc123",
+        "password": ""
+      },
+      "expected": {
+        "resultCode": "-1",
+        "resultMsg": "密码不能为空"
+      }
+    },
+    {
+      "case_name": "异常用例-手机号不能为空",
+      "params": {
+        "userName": "mc123",
+        "mobile": ""
+      },
+      "expected": {
+        "resultCode": "-1",
+        "resultMsg": "手机号不能为空"
+      }
+    },
+    {
+      "case_name": "异常用例-短信内容不能为空",
+      "params": {
+        "userName": "mc123",
+        "content": ""
+      },
+      "expected": {
+        "resultCode": "-1",
+        "resultMsg": "短信内容不能为空"
+      }
+    },
+    {
+      "case_name": "正向用例-短信内容499字",
+      "params": {
+        "userName": "mc123",
+        "content": ""
+      },
+      "expected": {
+        "resultCode": "1",
+        "resultMsg": "提交成功"
+      }
+    },
+    {
+      "case_name": "正向用例-短信内容500字",
+      "params": {
+        "userName": "mc123",
+        "content": ""
+      },
+      "expected": {
+        "resultCode": "1",
+        "resultMsg": "提交成功"
+      }
+    },
+    {
+      "case_name": "异常用例-短信内容501字",
+      "params": {
+        "userName": "mc123",
+        "content": ""
+      },
+      "expected": {
+        "resultCode": "-1",
+        "resultMsg": "短信内容过长"
+      }
+    }
+  ]
+}
